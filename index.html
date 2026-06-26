@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QCPR Run Service — Laerdal Medical</title>
+  <meta name="description" content="The QCPR Run Service by Laerdal Medical — everything you need to run a game-based CPR awareness campaign at your event.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:            #E0001B;
+      --red-dark:       #B30016;
+      --navy:           #0D1B3E;
+      --navy-mid:       #1A2E5A;
+      --white:          #FFFFFF;
+      --gray-50:        #F7F8FA;
+      --gray-100:       #EEF0F4;
+      --gray-200:       #DEE1E9;
+      --gray-400:       #9AA3B5;
+      --gray-500:       #6B7590;
+      --gray-700:       #3D4460;
+      --gray-900:       #181C2E;
+
+      --ess-bg:         #EDF8F1;
+      --ess-accent:     #197A44;
+      --ess-border:     #AADCBC;
+      --ess-icon:       rgba(25,122,68,.1);
+      --ess-hover:      rgba(25,122,68,.08);
+
+      --add-bg:         #F0F3FC;
+      --add-accent:     #3549C5;
+      --add-border:     #B8C5EE;
+      --add-icon:       rgba(53,73,197,.1);
+      --add-hover:      rgba(53,73,197,.08);
+
+      --r-sm:  6px;
+      --r-md:  12px;
+      --r-lg:  20px;
+      --shadow: 0 2px 10px rgba(13,27,62,.08);
+      --shadow-hover: 0 8px 24px rgba(13,27,62,.13);
+      --ease: .2s ease;
+
+      --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --max: 1100px;
+      --hh: 60px;
+      --th: 54px;
+    }
+
+    body { font-family: var(--font); background: var(--gray-50); color: var(--gray-900); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      height: var(--hh); background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      transition: box-shadow var(--ease);
+    }
+    header.scrolled { box-shadow: 0 2px 16px rgba(13,27,62,.10); }
+    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 34px; height: 34px; background: var(--red); border-radius: 9px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .logo-mark svg { color: white; }
+    .logo-name { font-size: 1rem; font-weight: 800; color: var(--navy); letter-spacing: -.02em; }
+    .logo-service { font-size: .75rem; font-weight: 500; color: var(--gray-400); margin-left: 2px; }
+
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; background: var(--navy); color: white;
+      text-decoration: none; border-radius: 8px;
+      font-size: .875rem; font-weight: 600;
+      transition: background var(--ease), transform var(--ease);
+    }
+    .nav-cta:hover { background: var(--navy-mid); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      background: var(--navy); overflow: hidden; position: relative;
+      padding: 72px 0 80px;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,.055) 1px, transparent 1px);
+      background-size: 30px 30px; pointer-events: none;
+    }
+    #hero::after {
+      content: ''; position: absolute; bottom: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(224,0,27,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner { display: grid; grid-template-columns: 1fr 400px; gap: 56px; align-items: center; position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 5px 13px; margin-bottom: 20px;
+      background: rgba(224,0,27,.15); border: 1px solid rgba(224,0,27,.28);
+      border-radius: 100px; color: #FF7585;
+      font-size: .75rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    }
+    .hero-h1 {
+      font-size: clamp(2rem, 3.8vw, 2.875rem); font-weight: 800;
+      color: white; line-height: 1.15; letter-spacing: -.03em; margin-bottom: 18px;
+    }
+    .hero-h1 span { color: var(--red); }
+    .hero-sub {
+      font-size: 1.0625rem; color: rgba(255,255,255,.68); line-height: 1.7;
+      max-width: 460px; margin-bottom: 32px;
+    }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 13px; border-radius: 100px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.13);
+      color: rgba(255,255,255,.78); font-size: .8125rem; font-weight: 500;
+    }
+    .hero-pill svg { opacity: .65; }
+
+    /* Hero right — category cards */
+    .hero-cats { display: flex; flex-direction: column; gap: 10px; }
+    .hero-cat {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; border-radius: 14px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.11);
+      transition: background var(--ease);
+    }
+    .hero-cat:hover { background: rgba(255,255,255,.12); }
+    .hero-cat-icon {
+      width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(224,0,27,.2); display: flex; align-items: center; justify-content: center;
+      color: #FF7585;
+    }
+    .hero-cat-text {}
+    .hero-cat-name { font-size: .875rem; font-weight: 700; color: rgba(255,255,255,.9); }
+    .hero-cat-meta { font-size: .75rem; color: rgba(255,255,255,.45); margin-top: 1px; }
+
+    /* ── TAB NAV ── */
+    #tab-nav {
+      position: sticky; top: var(--hh); z-index: 90;
+      background: var(--white); border-bottom: 1px solid var(--gray-100);
+      box-shadow: 0 2px 10px rgba(13,27,62,.06);
+    }
+    .tabs { display: flex; overflow-x: auto; scrollbar-width: none; height: var(--th); }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0 22px; height: 100%; border: none; background: none;
+      cursor: pointer; font-family: var(--font); font-size: .875rem; font-weight: 600;
+      color: var(--gray-500); white-space: nowrap; flex-shrink: 0;
+      position: relative; transition: color var(--ease);
+    }
+    .tab::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--red); border-radius: 3px 3px 0 0;
+      transform: scaleX(0); transition: transform var(--ease);
+    }
+    .tab:hover { color: var(--navy); }
+    .tab.active { color: var(--navy); }
+    .tab.active svg { color: var(--red); }
+    .tab.active::after { transform: scaleX(1); }
+    .tab svg { flex-shrink: 0; opacity: .6; transition: opacity var(--ease), color var(--ease); }
+    .tab.active svg { opacity: 1; }
+    .tab-label { }
+
+    /* ── PANELS ── */
+    #panels { padding: 48px 0 72px; }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeIn .25s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .panel-head { margin-bottom: 36px; }
+    .panel-tag {
+      display: inline-flex; align-items: center; gap: 6px; margin-bottom: 10px;
+      padding: 4px 12px; border-radius: 100px;
+      background: var(--gray-100); color: var(--gray-500);
+      font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .panel-h2 {
+      font-size: 1.75rem; font-weight: 800; color: var(--navy);
+      letter-spacing: -.028em; line-height: 1.2; margin-bottom: 10px;
+    }
+    .panel-desc { font-size: 1rem; color: var(--gray-500); max-width: 580px; line-height: 1.65; }
+
+    .panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+
+    /* ── COLUMNS ── */
+    .col {
+      border-radius: var(--r-lg); padding: 22px;
+    }
+    .col.ess { background: var(--ess-bg); border: 1.5px solid var(--ess-border); }
+    .col.add { background: var(--add-bg); border: 1.5px solid var(--add-border); }
+
+    .col-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 8px; }
+    .col-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 13px; border-radius: 100px;
+      font-size: .8125rem; font-weight: 700; color: white;
+    }
+    .col.ess .col-badge { background: var(--ess-accent); }
+    .col.add .col-badge { background: var(--add-accent); }
+    .col-count { font-size: .75rem; color: var(--gray-400); font-weight: 500; }
+
+    /* ── CARDS ── */
+    .cards { display: flex; flex-direction: column; gap: 10px; list-style: none; }
+
+    .card {
+      background: white; border-radius: var(--r-md); padding: 15px 15px 15px 19px;
+      display: flex; align-items: flex-start; gap: 13px;
+      border: 1px solid transparent; box-shadow: var(--shadow);
+      position: relative; overflow: hidden;
+      transition: box-shadow var(--ease), transform var(--ease), border-color var(--ease);
+      animation: slideUp .4s ease both;
+    }
+    .card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    }
+    .col.ess .card::before { background: var(--ess-accent); }
+    .col.add .card::before { background: var(--add-accent); }
+    .col.ess .card:hover { box-shadow: 0 6px 20px rgba(25,122,68,.12); transform: translateY(-2px); border-color: var(--ess-border); }
+    .col.add .card:hover { box-shadow: 0 6px 20px rgba(53,73,197,.12); transform: translateY(-2px); border-color: var(--add-border); }
+
+    .card:nth-child(1) { animation-delay: .04s; }
+    .card:nth-child(2) { animation-delay: .09s; }
+    .card:nth-child(3) { animation-delay: .14s; }
+    .card:nth-child(4) { animation-delay: .19s; }
+    .card:nth-child(5) { animation-delay: .24s; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .col.ess .card-icon { background: var(--ess-icon); color: var(--ess-accent); }
+    .col.add .card-icon { background: var(--add-icon); color: var(--add-accent); }
+
+    .card-body { flex: 1; min-width: 0; }
+    .card-title { font-size: .9375rem; font-weight: 700; color: var(--gray-900); line-height: 1.35; margin-bottom: 3px; }
+    .card-desc { font-size: .8125rem; color: var(--gray-500); line-height: 1.55; }
+    .add-badge {
+      display: inline-flex; align-items: center; margin-top: 6px;
+      padding: 2px 8px; border-radius: 100px;
+      background: var(--add-icon); color: var(--add-accent);
+      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+    }
+
+    /* ── CTA ── */
+    #cta {
+      background: var(--red); padding: 80px 0; position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
+      background-size: 26px 26px; pointer-events: none;
+    }
+    .cta-inner { position: relative; z-index: 1; text-align: center; max-width: 600px; margin: 0 auto; }
+    .cta-h2 { font-size: clamp(1.625rem, 3vw, 2.25rem); font-weight: 800; color: white; letter-spacing: -.025em; margin-bottom: 14px; }
+    .cta-sub { font-size: 1.0625rem; color: rgba(255,255,255,.82); margin-bottom: 36px; line-height: 1.65; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; background: white; color: var(--red);
+      text-decoration: none; border-radius: 10px; font-size: 1rem; font-weight: 700;
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      transition: transform var(--ease), box-shadow var(--ease);
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.25); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); padding: 26px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-brand { color: rgba(255,255,255,.9); font-weight: 700; font-size: .9375rem; }
+    .footer-copy { color: rgba(255,255,255,.35); font-size: .8125rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 920px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-cats { display: none; }
+    }
+    @media (max-width: 768px) {
+      .panel-grid { grid-template-columns: 1fr; }
+      #panels { padding: 36px 0 56px; }
+      .hero-h1 { font-size: 1.875rem; }
+    }
+    @media (max-width: 560px) {
+      .tab-label { display: none; }
+      .tab { padding: 0 18px; gap: 0; }
+      .tab svg { opacity: 1; }
+      .hero-pills { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header id="site-header">
+  <div class="wrap header-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-name">Laerdal</div>
+        <div class="logo-service">QCPR Run Service</div>
+      </div>
+    </a>
+    <a href="#cta" class="nav-cta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Get in touch
+    </a>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          Service Offering
+        </div>
+        <h1 class="hero-h1">Turn any event into a<br><span>CPR awareness</span> moment</h1>
+        <p class="hero-sub">The QCPR Run Service gives partners everything they need to run a game-based CPR training campaign — branded, packaged, and supported by Laerdal.</p>
+        <div class="hero-pills">
+          <span class="hero-pill">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            5 service categories
+          </span>
+          <span class="hero-pill">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Essentials included
+          </span>
+          <span class="hero-pill">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Flexible add-ons
+          </span>
+        </div>
+      </div>
+
+      <div class="hero-cats">
+        <div class="hero-cat">
+          <div class="hero-cat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/><path d="M18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg>
+          </div>
+          <div class="hero-cat-text">
+            <div class="hero-cat-name">Your Own Game</div>
+            <div class="hero-cat-meta">Branding · Logo · Team picker · Accounts</div>
+          </div>
+        </div>
+        <div class="hero-cat">
+          <div class="hero-cat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m16.5 0H3.75m16.5 0l-1.5-3H5.25L3.75 7.5M10 11.25h4"/></svg>
+          </div>
+          <div class="hero-cat-text">
+            <div class="hero-cat-name">Hardware &amp; Logistics</div>
+            <div class="hero-cat-meta">Mats · Little Anne Stackable · iPad</div>
+          </div>
+        </div>
+        <div class="hero-cat">
+          <div class="hero-cat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+          </div>
+          <div class="hero-cat-text">
+            <div class="hero-cat-name">Online Journey &amp; Content</div>
+            <div class="hero-cat-meta">Partner resources · Badges · CPR training</div>
+          </div>
+        </div>
+        <div class="hero-cat">
+          <div class="hero-cat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+          </div>
+          <div class="hero-cat-text">
+            <div class="hero-cat-name">Support &amp; Know-how</div>
+            <div class="hero-cat-meta">Remote training · Onboarding · On-site</div>
+          </div>
+        </div>
+        <div class="hero-cat">
+          <div class="hero-cat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+          </div>
+          <div class="hero-cat-text">
+            <div class="hero-cat-name">Data Analytics</div>
+            <div class="hero-cat-meta">CPR scores · Volumes · Live data · Dashboard</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TAB NAV ══ -->
+<nav id="tab-nav" aria-label="Service categories">
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+
+      <button class="tab active" data-target="game" role="tab" aria-selected="true" aria-controls="game">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+        <span class="tab-label">Your Own Game</span>
+      </button>
+
+      <button class="tab" data-target="hardware" role="tab" aria-selected="false" aria-controls="hardware">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m16.5 0H3.75m16.5 0l-1.5-3H5.25L3.75 7.5M10 11.25h4"/></svg>
+        <span class="tab-label">Hardware &amp; Logistics</span>
+      </button>
+
+      <button class="tab" data-target="online" role="tab" aria-selected="false" aria-controls="online">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        <span class="tab-label">Online Journey</span>
+      </button>
+
+      <button class="tab" data-target="support" role="tab" aria-selected="false" aria-controls="support">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+        <span class="tab-label">Support &amp; Know-how</span>
+      </button>
+
+      <button class="tab" data-target="data" role="tab" aria-selected="false" aria-controls="data">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+        <span class="tab-label">Data Analytics</span>
+      </button>
+
+    </div>
+  </div>
+</nav>
+
+<!-- ══ PANELS ══ -->
+<main id="panels">
+  <div class="wrap">
+
+    <!-- ── PANEL 1: YOUR OWN GAME ── -->
+    <section id="game" class="panel active" role="tabpanel" aria-labelledby="tab-game">
+      <div class="panel-head">
+        <div class="panel-tag">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+          Your Own Game
+        </div>
+        <h2 class="panel-h2">Make the game yours</h2>
+        <p class="panel-desc">Customize the QCPR game to match your brand and your audience. Up to 3 accounts are included — additional accounts and new game settings are available as add-ons.</p>
+      </div>
+      <div class="panel-grid">
+
+        <div class="col ess">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Included
+            </div>
+            <span class="col-count">4 features</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Team picker of your choice</div>
+                <div class="card-desc">Players select from teams you define — perfect for sports clubs, departments, or event themes.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Your brand colors</div>
+                <div class="card-desc">The game UI is styled in your brand palette for a seamless partner experience.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Your logo</div>
+                <div class="card-desc">Your organization's logo is displayed throughout the game experience.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Up to 3 game accounts</div>
+                <div class="card-desc">Three unique logins for your team to access, manage, and monitor the game.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col add">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Optional Upgrades
+            </div>
+            <span class="col-count">2 add-ons</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">New sport or setting</div>
+                <div class="card-desc">Unlock a custom game environment — a new sport or branded setting tailored to your audience.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 10-16 0"/><circle cx="10" cy="8" r="4"/><path d="M22 21a8 8 0 00-5.33-7.57"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">More than 3 game accounts</div>
+                <div class="card-desc">Scale access across larger teams with additional logins beyond the standard three.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PANEL 2: HARDWARE & LOGISTICS ── -->
+    <section id="hardware" class="panel" role="tabpanel">
+      <div class="panel-head">
+        <div class="panel-tag">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m16.5 0H3.75m16.5 0l-1.5-3H5.25L3.75 7.5"/></svg>
+          Hardware &amp; Logistics
+        </div>
+        <h2 class="panel-h2">Ready-to-run hardware</h2>
+        <p class="panel-desc">Your standard delivery includes CPR mats and training manikins. Tablets, adapters, and a restocking service can be added on top.</p>
+      </div>
+      <div class="panel-grid">
+
+        <div class="col ess">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Included
+            </div>
+            <span class="col-count">2 items</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">6 CPR mats + 4 stickers</div>
+                <div class="card-desc">Six full-size CPR training mats and four branded sticker sets — ready for booth setup.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">2 kits of Little Anne Stackable</div>
+                <div class="card-desc">Two kits of Laerdal's Little Anne Stackable manikins — compact, durable, and event-ready.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col add">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Optional Upgrades
+            </div>
+            <span class="col-count">3 add-ons</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 8.25h3"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">iPad 11</div>
+                <div class="card-desc">Add an iPad 11 for displaying scores, controlling the game, or presenting results on-screen.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Adapter: HDMI + power</div>
+                <div class="card-desc">HDMI and power adapter for connecting the iPad to external displays or large screens at your venue.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Restocking service</div>
+                <div class="card-desc">Keep your consumables replenished between campaigns with a managed restocking service.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PANEL 3: ONLINE JOURNEY ── -->
+    <section id="online" class="panel" role="tabpanel">
+      <div class="panel-head">
+        <div class="panel-tag">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+          Online Journey &amp; Content
+        </div>
+        <h2 class="panel-h2">Engage beyond the booth</h2>
+        <p class="panel-desc">Every participant gets a digital follow-up — from links to your resources to a shareable CPR score badge. Online CPR training is available as an add-on to extend impact.</p>
+      </div>
+      <div class="panel-grid">
+
+        <div class="col ess">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Included
+            </div>
+            <span class="col-count">2 features</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Link to partner resources</div>
+                <div class="card-desc">Players are directed to your own resources and follow-up content after completing the game.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Badge with scores</div>
+                <div class="card-desc">A personalized digital badge showing CPR performance scores — shareable on social media.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col add">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Optional Upgrades
+            </div>
+            <span class="col-count">1 add-on</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Online hands-only CPR training</div>
+                <div class="card-desc">An online module teaching hands-only CPR — extend the campaign's impact beyond the event itself and engage audiences at home.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PANEL 4: SUPPORT & KNOW-HOW ── -->
+    <section id="support" class="panel" role="tabpanel">
+      <div class="panel-head">
+        <div class="panel-tag">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+          Support &amp; Know-how
+        </div>
+        <h2 class="panel-h2">Set up for success</h2>
+        <p class="panel-desc">Remote training and a self-serve onboarding kit are included for booth leads and volunteers. Deeper on-site support and campaign planning are available when you need them.</p>
+      </div>
+      <div class="panel-grid">
+
+        <div class="col ess">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Included
+            </div>
+            <span class="col-count">2 features</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Remote training for booth leads</div>
+                <div class="card-desc">A live remote session to prepare your booth leads — covering setup, gameplay, and how to engage participants.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Self-served onboarding package</div>
+                <div class="card-desc">A comprehensive onboarding kit for volunteers and booth leads — guides, checklists, and setup instructions they can use independently.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col add">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Optional Upgrades
+            </div>
+            <span class="col-count">3 add-ons</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">On-site support</div>
+                <div class="card-desc">A Laerdal representative on location during your campaign to ensure everything runs smoothly.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">On-site training</div>
+                <div class="card-desc">Hands-on training for your team delivered in person at your venue before or during the campaign.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Support on campaign planning</div>
+                <div class="card-desc">Strategic input from the Laerdal team to help you plan, time, and maximize the reach of your campaign.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PANEL 5: DATA ANALYTICS ── -->
+    <section id="data" class="panel" role="tabpanel">
+      <div class="panel-head">
+        <div class="panel-tag">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+          Data Analytics
+        </div>
+        <h2 class="panel-h2">Measure your impact</h2>
+        <p class="panel-desc">Every campaign generates rich CPR performance data. Your standard package includes exportable post-campaign data — live dashboards and custom analytics are available as upgrades.</p>
+      </div>
+      <div class="panel-grid">
+
+        <div class="col ess">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Included
+            </div>
+            <span class="col-count">4 features</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">CPR performance metrics</div>
+                <div class="card-desc">Score, compression depth, release, and rate — detailed per-session data for every player.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Volume data</div>
+                <div class="card-desc">Total number of players, compressions performed, and time spent — a full picture of your campaign's reach.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Filterable by date &amp; account</div>
+                <div class="card-desc">Slice your data by campaign date or game account to compare results across events or locations.</div>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Data export after campaign</div>
+                <div class="card-desc">Export your full dataset up to 3 times after the campaign ends — ready for your own reporting or stakeholder presentations.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col add">
+          <div class="col-head">
+            <div class="col-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Optional Upgrades
+            </div>
+            <span class="col-count">3 add-ons</span>
+          </div>
+          <ul class="cards">
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Live data (5-min delay)</div>
+                <div class="card-desc">Monitor campaign performance in near real-time during your event — data refreshes every 5 minutes.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Self-serve dashboard access</div>
+                <div class="card-desc">Log in to your own analytics dashboard anytime — explore results at your own pace without waiting for exports.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+            <li class="card">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/></svg>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Custom filters &amp; correlations</div>
+                <div class="card-desc">Tailored data views with custom filters, additional data points, and cross-metric correlations to match your reporting needs.</div>
+                <span class="add-badge">Add-on</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ══ CTA ══ -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-inner">
+      <h2 class="cta-h2">Ready to bring CPR awareness to your next event?</h2>
+      <p class="cta-sub">Get in touch with the Laerdal team to explore how the QCPR Run Service fits your campaign and which add-ons make sense for your goals.</p>
+      <a href="mailto:qcprrun@laerdal.com" class="cta-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Get in touch
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">Laerdal Medical</div>
+    <div class="footer-copy">© <span id="yr"></span> Laerdal Medical. QCPR Run Service.</div>
+  </div>
+</footer>
+
+<script>
+  // Footer year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.target;
+
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      panels.forEach(p => p.classList.remove('active'));
+      const activePanel = document.getElementById(target);
+      activePanel.classList.add('active');
+
+      // Re-trigger card animations
+      activePanel.querySelectorAll('.card').forEach(c => {
+        c.style.animation = 'none';
+        void c.offsetHeight;
+        c.style.animation = '';
+      });
+
+      // Scroll tab into view on mobile
+      tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  });
+
+  // Header shadow on scroll
+  const hdr = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const el = document.querySelector(a.getAttribute('href'));
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
