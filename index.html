@@ -85,7 +85,11 @@
 
     /* ── HERO ── */
     #hero {
-      background: var(--navy) url('assets/hero-bg.jpg') center 40% / cover no-repeat;
+      background-color: var(--navy);
+      background-image: url('assets/hero-bg.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      background-repeat: no-repeat;
       overflow: hidden; position: relative;
       padding: 72px 0 80px;
     }
@@ -320,6 +324,16 @@
     }
     .media-caption { font-size: .8125rem; color: var(--gray-400); font-style: italic; }
 
+    /* ── FROM THE FIELD ── */
+    #from-field { background: var(--gray-50); padding: 0 0 64px; }
+    .field-head { text-align: center; padding: 48px 0 28px; }
+    .field-sub { font-size: .9375rem; color: var(--gray-500); margin-top: 6px; }
+    .field-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field-photo { border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4/3; }
+    .field-photo img { width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .4s ease; }
+    .field-photo:hover img { transform: scale(1.03); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 920px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -335,6 +349,7 @@
       .tab { padding: 0 18px; gap: 0; }
       .tab svg { opacity: 1; }
       .hero-pills { display: none; }
+      .field-photos { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -444,9 +459,27 @@
       <p class="inaction-sub">From event setup to live leaderboards — see what a campaign looks like in the field.</p>
     </div>
     <div class="video-wrap">
-      <video controls preload="none" poster="assets/hero-bg.jpg">
+      <video controls preload="none" playsinline poster="assets/hero-bg.jpg">
         <source src="assets/video.mp4" type="video/mp4">
       </video>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FROM THE FIELD ══ -->
+<section id="from-field">
+  <div class="wrap">
+    <div class="field-head">
+      <div class="panel-tag">From the field</div>
+      <p class="field-sub">Real campaigns, real impact — Budapest 2026</p>
+    </div>
+    <div class="field-photos">
+      <div class="field-photo">
+        <img src="assets/budapest-1.jpg" alt="QCPR Run campaign in action — Budapest 2026">
+      </div>
+      <div class="field-photo">
+        <img src="assets/budapest-2.jpg" alt="QCPR Run event — Budapest 2026">
+      </div>
     </div>
   </div>
 </section>
