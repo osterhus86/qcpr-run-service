@@ -85,18 +85,19 @@
 
     /* ── HERO ── */
     #hero {
-      background: var(--navy); overflow: hidden; position: relative;
+      background: var(--navy) url('assets/hero-bg.jpg') center 40% / cover no-repeat;
+      overflow: hidden; position: relative;
       padding: 72px 0 80px;
     }
     #hero::before {
       content: ''; position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,.055) 1px, transparent 1px);
-      background-size: 30px 30px; pointer-events: none;
+      background: linear-gradient(105deg, rgba(13,27,62,.94) 38%, rgba(13,27,62,.52) 100%);
+      pointer-events: none;
     }
     #hero::after {
       content: ''; position: absolute; bottom: -80px; right: -80px;
       width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(224,0,27,.18) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(224,0,27,.14) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -287,6 +288,38 @@
     .footer-brand { color: rgba(255,255,255,.9); font-weight: 700; font-size: .9375rem; }
     .footer-copy { color: rgba(255,255,255,.35); font-size: .8125rem; }
 
+    /* ── IN ACTION (video section) ── */
+    #in-action {
+      background: var(--white); padding: 64px 0 72px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .inaction-head { text-align: center; margin-bottom: 36px; }
+    .inaction-h2 {
+      font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 800;
+      color: var(--navy); letter-spacing: -.025em; margin: 8px 0 10px;
+    }
+    .inaction-sub { font-size: 1rem; color: var(--gray-500); max-width: 520px; margin: 0 auto; line-height: 1.65; }
+    .video-wrap {
+      max-width: 840px; margin: 0 auto;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 16px 48px rgba(13,27,62,.16);
+      background: #000; position: relative;
+    }
+    .video-wrap video { width: 100%; display: block; max-height: 480px; object-fit: contain; }
+
+    /* ── PANEL MEDIA (in-tab visuals) ── */
+    .panel-media { margin-top: 32px; }
+    .panel-media-inner {
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg); padding: 32px 24px 18px; text-align: center;
+    }
+    .panel-media-inner img {
+      max-width: 640px; width: 100%; display: block;
+      margin: 0 auto 12px; border-radius: var(--r-md);
+      box-shadow: 0 4px 24px rgba(13,27,62,.10);
+    }
+    .media-caption { font-size: .8125rem; color: var(--gray-400); font-style: italic; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 920px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -398,6 +431,22 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IN ACTION (video) ══ -->
+<section id="in-action">
+  <div class="wrap">
+    <div class="inaction-head">
+      <div class="panel-tag">See it in action</div>
+      <h2 class="inaction-h2">Watch the QCPR Run experience</h2>
+      <p class="inaction-sub">From event setup to live leaderboards — see what a campaign looks like in the field.</p>
+    </div>
+    <div class="video-wrap">
+      <video controls preload="none" poster="assets/hero-bg.jpg">
+        <source src="assets/video.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 </section>
@@ -532,6 +581,13 @@
           </ul>
         </div>
 
+      </div>
+
+      <div class="panel-media">
+        <div class="panel-media-inner">
+          <img src="assets/game-mockup.png" alt="QCPR game displayed on iPads with partner branding">
+          <p class="media-caption">The game experience — fully branded for your partner. Example shows a FIFA integration.</p>
+        </div>
       </div>
     </section>
 
@@ -878,6 +934,13 @@
           </ul>
         </div>
 
+      </div>
+
+      <div class="panel-media">
+        <div class="panel-media-inner">
+          <img src="assets/data-dashboard.png" alt="QCPR Run analytics dashboard showing CPR scores and player volumes">
+          <p class="media-caption">Real campaign data from the QCPR Run analytics dashboard.</p>
+        </div>
       </div>
     </section>
 
